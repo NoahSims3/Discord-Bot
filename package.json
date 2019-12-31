@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Noah Sims",
-  "license": "ISC",
+  "contributors": [
+    "Gavin R. Isgar <gisgar3@gmail.com> (https://github.com/Gisgar3)"
+  ],
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^11.5.1"
   }
