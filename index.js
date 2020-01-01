@@ -8,16 +8,17 @@ bot.on('ready', () =>{
 });
 
 bot.on('message', (msg) => {
-    
-    // Using a switch/case method to make the code way cleaner and easier to read
-    switch (msg.content.toLowerCase()) {
-        case "/hello": {
-            msg.reply('Hello Friend');
+    if (msg.author.id == bot.user.id) {
+        // Checks to see if the message was created by the bot itself; will ignore command-checks
+    }
+    else {
+        if (msg.content.toLowerCase() == "/hello") {
+            msg.reply("Hello Friend");
         }
-        case "/ping": {
-            msg.reply('Pong!');
+        if (msg.content.toLowerCase() == "/ping") {
+            msg.reply("Pong!");
         }
-        case "/commands": {
+        if (msg.content.toLowerCase() == "/commands") {
             let username = msg.author.username;
             let embed = new Discord.RichEmbed()
                 .addField("/hello", `The bot will respond with hello @${username}`)
