@@ -1,0 +1,12 @@
+{
+    "valid_command_identifiers": [
+        "/hello",
+        "/ping",
+        "/commands"
+    ],
+    "valid_command_definitions":[
+        "The bot will say hello!",
+        "The bot will \"Pong\" back!",
+        "The bot will respond with a valid list of commands!"
+    ]
+}
