@@ -2,10 +2,27 @@
 
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const tokens = require("./tokens.json");
 const roles = require("./roles.json");
 const commands = require("./commands.json");
 const net = require("net");
+const fs = require("fs");
+
+// Checks if the tokens.json file exists on a new install, and also checks to see if a valid bot_token string exists in the file
+if (fs.existsSync("./tokens.json") == true) {
+    // Adds a global variable leading to the "./tokens.json" file
+    global.tokens = require("./tokens.json");
+    // Checks to see if the "bot_token" string exists in the "./tokens.json" file
+    if (tokens.bot_token === undefined) {
+        console.log("\"bot_token\" string does not exist in the \"tokens.json\" file. This string is required for the bot to login.");
+    }
+    else {
+        bot.login(tokens.bot_token);
+    }
+}
+else {
+    console.log("\"tokens.json\" file does not exist in the local directory. This file is required for authorization.");
+}
+// -----------------------------------------------------------------------------------
 
 bot.on('ready', () => {
     console.log(`${bot.user.username}\nONLINE`);
@@ -52,5 +69,3 @@ bot.on("guildMemberRemove", (member) => {
     // Handles when a user leaves the server (disconnects/kicked/banned)
     console.log(`MEMBER_LEFT: ${member.user.tag} | ${member.user.id}`);
 });
-
-bot.login(tokens.bot_token);
