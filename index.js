@@ -1,11 +1,13 @@
 // Copyright (c) Noah Starkey-Sims and Gavin R. Isgar 2019-2020
 
+const package = require("./package.json");
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const roles = require("./roles.json");
 const commands = require("./commands.json");
 const net = require("net");
 const fs = require("fs");
+const readline = require("linebyline");
 
 // Checks if the tokens.json file exists on a new install, and also checks to see if a valid bot_token string exists in the file
 if (fs.existsSync("./tokens.json") == true) {
@@ -25,7 +27,8 @@ else {
 // -----------------------------------------------------------------------------------
 
 bot.on('ready', () => {
-    console.log(`${bot.user.username}\nONLINE`);
+    console.log(`Copyright (c) Noah Starkey-Sims and Gavin R. Isgar 2019-2020\n${bot.user.username} || v${package.version}\n*** ONLINE ***`);
+    setTimeout(() => console.clear(), 4000);
 });
 
 bot.on('message', (msg) => {
@@ -68,4 +71,20 @@ bot.on("guildMemberAdd", (member) => {
 bot.on("guildMemberRemove", (member) => {
     // Handles when a user leaves the server (disconnects/kicked/banned)
     console.log(`MEMBER_LEFT: ${member.user.tag} | ${member.user.id}`);
+});
+
+// Creates the CLI instance
+let rl = readline(process.stdin);
+rl.on("line", (input) => {
+    if (input.toString() == "/nexus fetchAudits") {
+        bot.guilds.forEach((guild) => {
+            if (guild.id == "652677735566540830") {
+                guild.fetchAuditLogs().then((audit) => console.log(audit.entries.last()));
+                
+            }
+        });
+    }
+    if (input.toString() == "/nexus clear") {
+        console.clear();
+    }
 });
